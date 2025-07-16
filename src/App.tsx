@@ -24,6 +24,17 @@ import TwoColumnSignInPage from "./blocks/auth/TwoColumnSignInPage";
 import BlogHomepage from "./blocks/blog/BlogHomepage";
 
 const useStyles = makeStyles({
+  appContainer: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: tokens.colorNeutralBackground1,
+    color: tokens.colorNeutralForeground1,
+    fontFamily: tokens.fontFamilyBase,
+    overflow: "auto",
+  },
   container: {
     maxWidth: "1400px",
     margin: "0 auto",
@@ -143,30 +154,6 @@ const App = () => {
     }
   };
 
-  // Apply theme to document body
-  React.useEffect(() => {
-    const body = document.body;
-    const theme = currentTheme;
-
-    body.style.backgroundColor = theme.colorNeutralBackground1;
-    body.style.color = theme.colorNeutralForeground1;
-    body.style.fontFamily = theme.fontFamilyBase;
-    body.style.margin = "0";
-    body.style.padding = "0";
-
-    // Also apply to html element for full coverage
-    const html = document.documentElement;
-    html.style.backgroundColor = theme.colorNeutralBackground1;
-
-    return () => {
-      // Cleanup function to reset styles if needed
-      body.style.backgroundColor = "";
-      body.style.color = "";
-      body.style.fontFamily = "";
-      html.style.backgroundColor = "";
-    };
-  }, [currentTheme]);
-
   const toggleTheme = () => {
     if (themeMode === "system") {
       setThemeMode("light");
@@ -201,35 +188,37 @@ const App = () => {
 
   return (
     <FluentProvider theme={currentTheme}>
-      <div className={styles.container}>
-        <header className={styles.header}>
-          <Button
-            appearance="subtle"
-            icon={getThemeIcon()}
-            onClick={toggleTheme}
-            className={styles.themeToggle}
-            title={`Switch theme (Currently: ${getThemeLabel()})`}
-          >
-            {getThemeLabel()}
-          </Button>
-        </header>
-
-        <div className={styles.content}>
-          <div className={styles.tabsContainer}>
-            <TabList
-              selectedValue={selectedTab}
-              onTabSelect={handleTabChange}
-              className={styles.tabList}
-              size="large"
+      <div className={styles.appContainer}>
+        <div className={styles.container}>
+          <header className={styles.header}>
+            <Button
+              appearance="subtle"
+              icon={getThemeIcon()}
+              onClick={toggleTheme}
+              className={styles.themeToggle}
+              title={`Switch theme (Currently: ${getThemeLabel()})`}
             >
-              <Tab value="analytics">Analytics Dashboard</Tab>
-              <Tab value="checkout">Checkout Page</Tab>
-              <Tab value="signin">Sign In Page</Tab>
-              <Tab value="twocolumn">Two-Column Sign In</Tab>
-              <Tab value="blog">Blog Homepage</Tab>
-            </TabList>
+              {getThemeLabel()}
+            </Button>
+          </header>
 
-            <div className={styles.tabContent}>{renderCurrentTemplate()}</div>
+          <div className={styles.content}>
+            <div className={styles.tabsContainer}>
+              <TabList
+                selectedValue={selectedTab}
+                onTabSelect={handleTabChange}
+                className={styles.tabList}
+                size="large"
+              >
+                <Tab value="analytics">Analytics Dashboard</Tab>
+                <Tab value="checkout">Checkout Page</Tab>
+                <Tab value="signin">Sign In Page</Tab>
+                <Tab value="twocolumn">Two-Column Sign In</Tab>
+                <Tab value="blog">Blog Homepage</Tab>
+              </TabList>
+
+              <div className={styles.tabContent}>{renderCurrentTemplate()}</div>
+            </div>
           </div>
         </div>
       </div>
