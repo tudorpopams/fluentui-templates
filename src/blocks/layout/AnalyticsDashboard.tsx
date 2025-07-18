@@ -29,6 +29,12 @@ import {
   ChevronDown24Regular,
   Home24Regular,
 } from "@fluentui/react-icons";
+import {
+  AreaChart,
+  VerticalBarChart,
+  ChartProps,
+  VerticalBarChartDataPoint,
+} from "@fluentui/react-charts";
 
 const useStyles = makeStyles({
   card: {
@@ -346,6 +352,71 @@ const columns: TableColumnDefinition<TableItem>[] = [
   }),
 ];
 
+// Chart data for Sessions Area Chart
+const sessionsData: ChartProps = {
+  chartTitle: "Sessions Over Time",
+  lineChartData: [
+    {
+      legend: "Sessions",
+      data: [
+        { x: new Date("2023-03-01"), y: 8500 },
+        { x: new Date("2023-03-05"), y: 9200 },
+        { x: new Date("2023-03-10"), y: 10800 },
+        { x: new Date("2023-03-15"), y: 11500 },
+        { x: new Date("2023-03-20"), y: 13277 },
+        { x: new Date("2023-03-25"), y: 12800 },
+        { x: new Date("2023-03-30"), y: 14200 },
+        { x: new Date("2023-04-01"), y: 13900 },
+        { x: new Date("2023-04-05"), y: 15100 },
+        { x: new Date("2023-04-10"), y: 14800 },
+        { x: new Date("2023-04-15"), y: 16200 },
+        { x: new Date("2023-04-17"), y: 13277 },
+      ],
+      color: tokens.colorBrandBackground,
+    },
+  ],
+};
+
+// Chart data for Page Views Bar Chart
+const pageViewsData: VerticalBarChartDataPoint[] = [
+  {
+    x: "Oct",
+    y: 980000,
+    legend: "October",
+    color: tokens.colorPaletteBlueForeground2,
+  },
+  {
+    x: "Nov",
+    y: 1100000,
+    legend: "November",
+    color: tokens.colorPaletteBlueForeground2,
+  },
+  {
+    x: "Dec",
+    y: 1250000,
+    legend: "December",
+    color: tokens.colorPaletteBlueForeground2,
+  },
+  {
+    x: "Jan",
+    y: 1150000,
+    legend: "January",
+    color: tokens.colorPaletteBlueForeground2,
+  },
+  {
+    x: "Feb",
+    y: 1300000,
+    legend: "February",
+    color: tokens.colorPaletteBlueForeground2,
+  },
+  {
+    x: "Mar",
+    y: 1280000,
+    legend: "March",
+    color: tokens.colorPaletteBlueForeground2,
+  },
+];
+
 const AnalyticsDashboard: React.FC = () => {
   const styles = useStyles();
   const [selectedValue, setSelectedValue] = React.useState("home");
@@ -511,9 +582,12 @@ const AnalyticsDashboard: React.FC = () => {
                 }
               />
               <CardPreview>
-                <div className={styles.chartPlaceholder}>
-                  <Text>Area Chart - Sessions over time</Text>
-                </div>
+                <AreaChart
+                  data={sessionsData}
+                  height={300}
+                  width={600}
+                  enableReflow={true}
+                />
               </CardPreview>
             </Card>
 
@@ -536,9 +610,18 @@ const AnalyticsDashboard: React.FC = () => {
                 }
               />
               <CardPreview>
-                <div className={styles.barChartPlaceholder}>
-                  <Text>Bar Chart - Page views by month</Text>
-                </div>
+                <VerticalBarChart
+                  data={pageViewsData}
+                  height={200}
+                  width={400}
+                  barWidth={40}
+                  yAxisTickCount={5}
+                  enableReflow={true}
+                  chartTitle="Page Views by Month"
+                  legendProps={{
+                    allowFocusOnLegends: true,
+                  }}
+                />
               </CardPreview>
             </Card>
           </div>
