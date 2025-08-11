@@ -16,6 +16,7 @@ import {
   createTableColumn,
   NavItem,
   Nav,
+  tokens,
 } from "@fluentui/react-components";
 import {
   DataTrending24Regular,
@@ -187,37 +188,37 @@ const pageViewsData: VerticalBarChartDataPoint[] = [
     x: "Oct",
     y: 980000,
     legend: "October",
-    color: "#0078d4",
+    color: tokens.colorPaletteBlueForeground2,
   },
   {
     x: "Nov",
     y: 1100000,
     legend: "November",
-    color: "#0078d4",
+    color: tokens.colorPaletteBlueForeground2,
   },
   {
     x: "Dec",
     y: 1250000,
     legend: "December",
-    color: "#0078d4",
+    color: tokens.colorPaletteBlueForeground2,
   },
   {
     x: "Jan",
     y: 1150000,
     legend: "January",
-    color: "#0078d4",
+    color: tokens.colorPaletteBlueForeground2,
   },
   {
     x: "Feb",
     y: 1300000,
     legend: "February",
-    color: "#0078d4",
+    color: tokens.colorPaletteBlueForeground2,
   },
   {
     x: "Mar",
     y: 1280000,
     legend: "March",
-    color: "#0078d4",
+    color: tokens.colorPaletteBlueForeground2,
   },
 ];
 
@@ -234,8 +235,70 @@ const TailwindAnalyticsDashboard: React.FC = () => {
     { name: "Brazil", percentage: 15, flag: "🇧🇷" },
   ];
 
+  // Define all Fluent UI design tokens as CSS variables
+  const designTokens = {
+    // Spacing
+    "--spacing-vertical-xs": tokens.spacingVerticalXS,
+    "--spacing-vertical-s": tokens.spacingVerticalS,
+    "--spacing-vertical-m": tokens.spacingVerticalM,
+    "--spacing-vertical-l": tokens.spacingVerticalL,
+    "--spacing-horizontal-xs": tokens.spacingHorizontalXS,
+    "--spacing-horizontal-s": tokens.spacingHorizontalS,
+    "--spacing-horizontal-m": tokens.spacingHorizontalM,
+    "--spacing-horizontal-l": tokens.spacingHorizontalL,
+
+    // Colors - Background
+    "--color-neutral-background1": tokens.colorNeutralBackground1,
+    "--color-neutral-background2": tokens.colorNeutralBackground2,
+    "--color-neutral-background3": tokens.colorNeutralBackground3,
+    "--color-neutral-background4": tokens.colorNeutralBackground4,
+    "--color-neutral-background5": tokens.colorNeutralBackground5,
+    "--color-neutral-background6": tokens.colorNeutralBackground6,
+
+    // Colors - Foreground
+    "--color-neutral-foreground1": tokens.colorNeutralForeground1,
+    "--color-neutral-foreground2": tokens.colorNeutralForeground2,
+    "--color-neutral-foreground3": tokens.colorNeutralForeground3,
+    "--color-neutral-foreground4": tokens.colorNeutralForeground4,
+
+    // Colors - Stroke
+    "--color-neutral-stroke1": tokens.colorNeutralStroke1,
+    "--color-neutral-stroke2": tokens.colorNeutralStroke2,
+    "--color-neutral-stroke3": tokens.colorNeutralStroke3,
+
+    // Colors - Brand
+    "--color-brand-background": tokens.colorBrandBackground,
+    "--color-brand-background2": tokens.colorBrandBackground2,
+    "--color-brand-foreground1": tokens.colorBrandForeground1,
+    "--color-brand-foreground2": tokens.colorBrandForeground2,
+
+    // Colors - Palette
+    "--color-palette-green-foreground1": tokens.colorPaletteGreenForeground1,
+    "--color-palette-green-background2": tokens.colorPaletteGreenBackground2,
+    "--color-palette-red-foreground1": tokens.colorPaletteRedForeground1,
+    "--color-palette-red-background2": tokens.colorPaletteRedBackground2,
+    "--color-palette-blue-foreground2": tokens.colorPaletteBlueForeground2,
+    "--color-palette-blue-background2": tokens.colorPaletteBlueBackground2,
+    "--color-palette-yellow-background2": tokens.colorPaletteYellowBackground2,
+
+    // Shadows
+    "--shadow8": tokens.shadow8,
+    "--shadow16": tokens.shadow16,
+
+    // Border radius
+    "--border-radius-small": tokens.borderRadiusSmall,
+    "--border-radius-medium": tokens.borderRadiusMedium,
+
+    // Typography
+    "--font-weight-semibold": tokens.fontWeightSemibold,
+    "--font-size-base200": tokens.fontSizeBase200,
+  } as React.CSSProperties;
+
   return (
-    <Card className="w-full m-0 h-fit p-6">
+    <Card
+      style={designTokens}
+      className="w-full m-0 h-fit p-[var(--spacing-vertical-m)] shadow-[var(--shadow16)] border border-[var(--color-neutral-stroke2)]"
+    >
       <CardHeader
         header={
           <Text weight="semibold" size={500}>
@@ -248,10 +311,10 @@ const TailwindAnalyticsDashboard: React.FC = () => {
           </Text>
         }
       />
-      <div className="grid grid-cols-[250px_1fr] gap-0 min-h-[800px]">
+      <div className="grid grid-cols-[250px_1fr] min-h-[800px] bg-[var(--color-neutral-background1)] rounded-[var(--border-radius-medium)] overflow-hidden">
         {/* Sidebar */}
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2 p-4">
+        <div className="flex flex-col bg-[var(--color-neutral-background2)] border-r border-[var(--color-neutral-stroke2)]">
+          <div className="flex items-center gap-[var(--spacing-horizontal-s)] p-[var(--spacing-horizontal-m)] pt-[var(--spacing-vertical-m)] pb-[var(--spacing-vertical-m)] border-b border-[var(--color-neutral-stroke2)]">
             <Globe24Regular />
             <Text weight="semibold">Streamlit-web</Text>
           </div>
@@ -288,9 +351,9 @@ const TailwindAnalyticsDashboard: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="p-6 overflow-auto">
+        <div className="p-[var(--spacing-vertical-l)] overflow-auto">
           {/* Header */}
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-[var(--spacing-vertical-l)]">
             <div>
               <Text size={600} weight="semibold">
                 Dashboard
@@ -301,70 +364,58 @@ const TailwindAnalyticsDashboard: React.FC = () => {
                 {selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1)}
               </Text>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex gap-[var(--spacing-horizontal-s)] items-center">
               <Text>Apr 17, 2023</Text>
               <Button appearance="primary">Get insights</Button>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card>
-              <div className="flex items-center mb-2">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[var(--spacing-horizontal-l)] mb-[var(--spacing-vertical-l)]">
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-all duration-200 hover:shadow-[var(--shadow16)] hover:-translate-y-0.5">
+              <div className="text-[32px] font-[var(--font-weight-semibold)] flex items-center gap-[var(--spacing-horizontal-s)] mb-[var(--spacing-vertical-xs)]">
                 <People24Regular />
-                <Text size={600} weight="semibold">
-                  14k
-                </Text>
+                14k
               </div>
               <Text>Users</Text>
-              <div className="flex items-center mt-2">
-                <ChevronUp24Regular color="green" />
-                <Text size={200} style={{ color: "green" }}>
-                  +5%
-                </Text>
-                <Text size={200}>Last 30 days</Text>
+              <div className="flex items-center gap-[var(--spacing-horizontal-xs)] text-[var(--color-palette-green-foreground1)]">
+                <ChevronUp24Regular />
+                <Text>+5%</Text>
+                <Text>Last 30 days</Text>
               </div>
             </Card>
 
-            <Card>
-              <div className="flex items-center mb-2">
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-all duration-200 hover:shadow-[var(--shadow16)] hover:-translate-y-0.5">
+              <div className="text-[32px] font-[var(--font-weight-semibold)] flex items-center gap-[var(--spacing-horizontal-s)] mb-[var(--spacing-vertical-xs)]">
                 <Eye24Regular />
-                <Text size={600} weight="semibold">
-                  325
-                </Text>
+                325
               </div>
               <Text>Conversions</Text>
-              <div className="flex items-center mt-2">
-                <ChevronDown24Regular color="red" />
-                <Text size={200} style={{ color: "red" }}>
-                  -3%
-                </Text>
-                <Text size={200}>Last 30 days</Text>
+              <div className="flex items-center gap-[var(--spacing-horizontal-xs)] text-[var(--color-palette-red-foreground1)]">
+                <ChevronDown24Regular />
+                <Text>-3%</Text>
+                <Text>Last 30 days</Text>
               </div>
             </Card>
 
-            <Card>
-              <div className="flex items-center mb-2">
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-all duration-200 hover:shadow-[var(--shadow16)] hover:-translate-y-0.5">
+              <div className="text-[32px] font-[var(--font-weight-semibold)] flex items-center gap-[var(--spacing-horizontal-s)] mb-[var(--spacing-vertical-xs)]">
                 <DataTrending24Regular />
-                <Text size={600} weight="semibold">
-                  200k
-                </Text>
+                200k
               </div>
               <Text>Event count</Text>
-              <div className="flex items-center mt-2">
-                <ChevronUp24Regular color="green" />
-                <Text size={200} style={{ color: "green" }}>
-                  +3%
-                </Text>
-                <Text size={200}>Last 30 days</Text>
+              <div className="flex items-center gap-[var(--spacing-horizontal-xs)] text-[var(--color-palette-green-foreground1)]">
+                <ChevronUp24Regular />
+                <Text>+3%</Text>
+                <Text>Last 30 days</Text>
               </div>
             </Card>
 
-            <Card>
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-all duration-200 hover:shadow-[var(--shadow16)] hover:-translate-y-0.5">
               <CardHeader
                 header={
                   <div>
                     <Text weight="semibold">Explore your data</Text>
-                    <Text>
+                    <Text className="text-[var(--color-neutral-foreground2)]">
                       Uncover performance and visitor insights with our data
                     </Text>
                   </div>
@@ -374,24 +425,22 @@ const TailwindAnalyticsDashboard: React.FC = () => {
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <Card>
+          <div className="grid grid-cols-[2fr_1fr] gap-[var(--spacing-horizontal-l)] mb-[var(--spacing-vertical-l)]">
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-shadow duration-200 hover:shadow-[var(--shadow16)]">
               <CardHeader
                 header={
                   <div>
                     <Text weight="semibold">Sessions</Text>
-                    <div className="flex items-center my-2">
-                      <Text size={600} weight="semibold">
-                        13,277
-                      </Text>
-                      <div className="flex items-center ml-4">
-                        <ChevronUp24Regular color="green" />
-                        <Text size={200} style={{ color: "green" }}>
-                          +4%
-                        </Text>
+                    <div className="text-[32px] font-[var(--font-weight-semibold)] flex items-center gap-[var(--spacing-horizontal-s)] mb-[var(--spacing-vertical-xs)]">
+                      13,277
+                      <div className="flex items-center gap-[var(--spacing-horizontal-xs)] text-[var(--color-palette-green-foreground1)]">
+                        <ChevronUp24Regular />
+                        <Text>+4%</Text>
                       </div>
                     </div>
-                    <Text>Sessions over time for the last 30 days</Text>
+                    <Text className="text-[var(--color-neutral-foreground2)]">
+                      Sessions over time for the last 30 days
+                    </Text>
                   </div>
                 }
               />
@@ -405,23 +454,21 @@ const TailwindAnalyticsDashboard: React.FC = () => {
               </CardPreview>
             </Card>
 
-            <Card>
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-shadow duration-200 hover:shadow-[var(--shadow16)]">
               <CardHeader
                 header={
                   <div>
                     <Text weight="semibold">Page views and downloads</Text>
-                    <div className="flex items-center my-2">
-                      <Text size={600} weight="semibold">
-                        1.3M
-                      </Text>
-                      <div className="flex items-center ml-4">
-                        <ChevronDown24Regular color="red" />
-                        <Text size={200} style={{ color: "red" }}>
-                          -6%
-                        </Text>
+                    <div className="text-[32px] font-[var(--font-weight-semibold)] flex items-center gap-[var(--spacing-horizontal-s)] mb-[var(--spacing-vertical-xs)]">
+                      1.3M
+                      <div className="flex items-center gap-[var(--spacing-horizontal-xs)] text-[var(--color-palette-red-foreground1)]">
+                        <ChevronDown24Regular />
+                        <Text>-6%</Text>
                       </div>
                     </div>
-                    <Text>Page views and downloads for the last 6 months</Text>
+                    <Text className="text-[var(--color-neutral-foreground2)]">
+                      Page views and downloads for the last 6 months
+                    </Text>
                   </div>
                 }
               />
@@ -442,8 +489,8 @@ const TailwindAnalyticsDashboard: React.FC = () => {
             </Card>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <Card className="lg:col-span-2">
+          <div className="grid grid-cols-[2fr_1fr] gap-[var(--spacing-horizontal-l)]">
+            <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-shadow duration-200 hover:shadow-[var(--shadow16)]">
               <CardHeader header={<Text weight="semibold">Details</Text>} />
               <DataGrid
                 items={tableData}
@@ -472,45 +519,37 @@ const TailwindAnalyticsDashboard: React.FC = () => {
               </DataGrid>
             </Card>
 
-            <Card>
-              <CardHeader
-                header={<Text weight="semibold">Users by country</Text>}
-              />
-              <div className="space-y-4">
-                {countryData.map((country) => (
-                  <div
-                    key={country.name}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span>{country.flag}</span>
-                      <Text>{country.name}</Text>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div
-                        style={{
-                          width: "80px",
-                          height: "8px",
-                          backgroundColor: "var(--colorNeutralBackground3)",
-                          borderRadius: "4px",
-                          overflow: "hidden",
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "100%",
-                            backgroundColor: "var(--colorBrandBackground)",
-                            borderRadius: "4px",
-                            width: `${country.percentage}%`,
-                          }}
-                        />
+            <div className="flex flex-col gap-[var(--spacing-vertical-m)]">
+              <Card className="p-[var(--spacing-vertical-m)] shadow-[var(--shadow8)] border border-[var(--color-neutral-stroke2)] bg-[var(--color-neutral-background1)] transition-shadow duration-200 hover:shadow-[var(--shadow16)]">
+                <CardHeader
+                  header={<Text weight="semibold">Users by country</Text>}
+                />
+                <div className="flex flex-col gap-[var(--spacing-vertical-s)]">
+                  {countryData.map((country) => (
+                    <div
+                      key={country.name}
+                      className="flex justify-between items-center p-[var(--spacing-vertical-xs)]"
+                    >
+                      <div className="flex items-center gap-[var(--spacing-horizontal-s)]">
+                        <span className="w-5 h-4 bg-[var(--color-neutral-background3)] rounded-[var(--border-radius-small)]">
+                          {country.flag}
+                        </span>
+                        <Text>{country.name}</Text>
                       </div>
-                      <Text size={200}>{country.percentage}%</Text>
+                      <div className="flex items-center gap-[8px]">
+                        <div className="w-[60px] h-1 bg-[var(--color-neutral-background3)] rounded-[var(--border-radius-small)] overflow-hidden">
+                          <div
+                            className="h-full bg-[var(--color-brand-background)] transition-[width] duration-300"
+                            style={{ width: `${country.percentage}%` }}
+                          />
+                        </div>
+                        <Text>{country.percentage}%</Text>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
+                  ))}
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
