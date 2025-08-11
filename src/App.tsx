@@ -18,6 +18,7 @@ import * as React from "react";
 
 // Layout blocks
 import AnalyticsDashboard from "./blocks/layout/AnalyticsDashboard";
+import TailwindAnalyticsDashboard from "./blocks/layout/TailwindAnalyticsDashboard";
 import CheckoutPage from "./blocks/ecommerce/CheckoutPage";
 import SignInPage from "./blocks/auth/SignInPage";
 import TwoColumnSignInPage from "./blocks/auth/TwoColumnSignInPage";
@@ -141,6 +142,8 @@ const App = () => {
     switch (selectedTab) {
       case "analytics":
         return <AnalyticsDashboard />;
+      case "tailwind":
+        return <TailwindAnalyticsDashboard />;
       case "checkout":
         return <CheckoutPage />;
       case "signin":
@@ -211,6 +214,7 @@ const App = () => {
                 size="large"
               >
                 <Tab value="analytics">Analytics Dashboard</Tab>
+                <Tab value="tailwind">Tailwind Dashboard</Tab>
                 <Tab value="checkout">Checkout Page</Tab>
                 <Tab value="signin">Sign In Page</Tab>
                 <Tab value="twocolumn">Two-Column Sign In</Tab>
