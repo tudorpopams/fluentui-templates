@@ -244,7 +244,53 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **React Community** - For the excellent ecosystem
 - **Vite Team** - For the fast development experience
 
-## 📞 Support
+## � GitHub Pages Deployment
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### 📋 Setup Instructions
+
+1. **Enable GitHub Pages**:
+
+   - Go to your repository's Settings → Pages
+   - Set Source to "GitHub Actions"
+   - Save the configuration
+
+2. **Configure Repository Name** (if needed):
+
+   - If your repository name is different from `fluentui-blocks`, update the `base` path in `vite.config.ts`:
+
+   ```typescript
+   base: process.env.NODE_ENV === 'production' ? '/your-repo-name/' : '/',
+   ```
+
+3. **Deploy**:
+   - Push to the `main` branch to trigger automatic deployment
+   - Or manually trigger deployment from the Actions tab
+
+### 🔧 Deployment Workflow
+
+The `.github/workflows/deploy.yml` file automatically:
+
+- Builds the project using `npm run build`
+- Generates a `dist/` folder with optimized assets
+- Deploys to GitHub Pages
+- Provides a live URL for sharing
+
+### 🌐 Access Your Deployed Site
+
+After deployment, your site will be available at:
+
+- `https://[username].github.io/[repository-name]/`
+- Each tab has shareable URLs (e.g., `#charts`, `#analytics`)
+
+### 🔄 Automatic Updates
+
+- Every push to `main` branch automatically rebuilds and redeploys
+- No manual intervention required
+- Build status visible in GitHub Actions tab
+
+## �📞 Support
 
 If you have questions or need help:
 
