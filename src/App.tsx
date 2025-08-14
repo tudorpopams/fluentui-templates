@@ -13,6 +13,7 @@ import {
 import {
   WeatherMoon24Regular,
   WeatherSunny24Regular,
+  Share24Regular,
 } from "@fluentui/react-icons";
 import * as React from "react";
 
@@ -57,10 +58,16 @@ const useStyles = makeStyles({
     position: "relative",
     paddingBottom: tokens.spacingVerticalXXL,
   },
-  themeToggle: {
+  headerActions: {
     position: "absolute",
     top: "0",
     right: "0",
+    display: "flex",
+    gap: tokens.spacingHorizontalS,
+    alignItems: "center",
+  },
+  themeToggle: {
+    // Removed individual positioning since it's now in headerActions
   },
   title: {
     marginBottom: tokens.spacingVerticalS,
@@ -126,7 +133,57 @@ const App = () => {
   const [themeMode, setThemeMode] = React.useState<"system" | "light" | "dark">(
     "system"
   );
-  const [selectedTab, setSelectedTab] = React.useState<string>("analytics");
+
+  // Get initial tab from URL hash or default to "analytics"
+  const getInitialTab = () => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.slice(1); // Remove the # symbol
+      const validTabs = [
+        "analytics",
+        "charts",
+        "tailwind",
+        "checkout",
+        "signin",
+        "twocolumn",
+        "blog",
+      ];
+      return validTabs.includes(hash) ? hash : "analytics";
+    }
+    return "analytics";
+  };
+
+  const [selectedTab, setSelectedTab] = React.useState<string>(getInitialTab);
+
+  // Update URL when tab changes
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.location.hash = selectedTab;
+    }
+  }, [selectedTab]);
+
+  // Listen for hash changes (browser back/forward)
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleHashChange = () => {
+        const hash = window.location.hash.slice(1);
+        const validTabs = [
+          "analytics",
+          "charts",
+          "tailwind",
+          "checkout",
+          "signin",
+          "twocolumn",
+          "blog",
+        ];
+        if (validTabs.includes(hash)) {
+          setSelectedTab(hash);
+        }
+      };
+
+      window.addEventListener("hashchange", handleHashChange);
+      return () => window.removeEventListener("hashchange", handleHashChange);
+    }
+  }, []);
 
   // Determine the actual theme to use
   const isDarkTheme =
@@ -192,20 +249,48 @@ const App = () => {
     return themeMode === "dark" ? "Dark" : "Light";
   };
 
+  const copyCurrentLink = async () => {
+    if (typeof window !== "undefined") {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        // You could add a toast notification here if you have a toast system
+        console.log("Link copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy link:", err);
+        // Fallback for older browsers
+        const textArea = document.createElement("textarea");
+        textArea.value = window.location.href;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
+    }
+  };
+
   return (
     <FluentProvider theme={currentTheme}>
       <div className={styles.appContainer}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <Button
-              appearance="subtle"
-              icon={getThemeIcon()}
-              onClick={toggleTheme}
-              className={styles.themeToggle}
-              title={`Switch theme (Currently: ${getThemeLabel()})`}
-            >
-              {getThemeLabel()}
-            </Button>
+            <div className={styles.headerActions}>
+              <Button
+                appearance="subtle"
+                icon={<Share24Regular />}
+                onClick={copyCurrentLink}
+                title="Copy link to current page"
+              >
+                Share
+              </Button>
+              <Button
+                appearance="subtle"
+                icon={getThemeIcon()}
+                onClick={toggleTheme}
+                title={`Switch theme (Currently: ${getThemeLabel()})`}
+              >
+                {getThemeLabel()}
+              </Button>
+            </div>
           </header>
 
           <div className={styles.content}>
