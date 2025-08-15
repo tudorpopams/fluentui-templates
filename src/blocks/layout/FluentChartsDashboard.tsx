@@ -16,17 +16,21 @@ import {
   Eye24Regular,
   Calendar24Regular,
   ChevronUp24Regular,
-  ChevronDown24Regular,
   Home24Regular,
-  DataScatter24Regular,
 } from "@fluentui/react-icons";
 import {
   AreaChart,
   VerticalBarChart,
   LineChart,
   DonutChart,
+  FunnelChart,
+  GanttChart,
+  GaugeChart,
+  HeatMapChart,
+  ScatterChart,
   ChartProps,
   VerticalBarChartDataPoint,
+  GanttChartDataPoint,
   DataVizPalette,
   getColorFromToken,
 } from "@fluentui/react-charts";
@@ -235,40 +239,6 @@ const FluentChartsDashboard: React.FC = () => {
     },
   ];
 
-  // Multi-Bar Chart Data (using different colors for variety)
-  const multiBarData: VerticalBarChartDataPoint[] = [
-    {
-      x: "Product A",
-      y: 8500,
-      legend: "Product A",
-      color: getColorFromToken(DataVizPalette.color5),
-    },
-    {
-      x: "Product B",
-      y: 12300,
-      legend: "Product B",
-      color: getColorFromToken(DataVizPalette.color6),
-    },
-    {
-      x: "Product C",
-      y: 6700,
-      legend: "Product C",
-      color: getColorFromToken(DataVizPalette.color7),
-    },
-    {
-      x: "Product D",
-      y: 15200,
-      legend: "Product D",
-      color: getColorFromToken(DataVizPalette.color8),
-    },
-    {
-      x: "Product E",
-      y: 9800,
-      legend: "Product E",
-      color: getColorFromToken(DataVizPalette.color9),
-    },
-  ];
-
   // Donut Chart Data
   const donutData: ChartProps = {
     chartTitle: "Market Share",
@@ -291,110 +261,221 @@ const FluentChartsDashboard: React.FC = () => {
     ],
   };
 
-  // Performance Data for second donut chart
-  const performanceData: ChartProps = {
-    chartTitle: "Performance Score",
+  // Pie Chart Data
+  const pieChartData: ChartProps = {
+    chartTitle: "Browser Distribution",
     chartData: [
       {
-        legend: "Completed",
-        data: 78,
+        legend: "Chrome",
+        data: 65,
         color: getColorFromToken(DataVizPalette.color1),
       },
       {
-        legend: "Remaining",
-        data: 22,
-        color: getColorFromToken(DataVizPalette.color10),
+        legend: "Safari",
+        data: 20,
+        color: getColorFromToken(DataVizPalette.color2),
+      },
+      {
+        legend: "Firefox",
+        data: 10,
+        color: getColorFromToken(DataVizPalette.color3),
+      },
+      {
+        legend: "Edge",
+        data: 5,
+        color: getColorFromToken(DataVizPalette.color4),
       },
     ],
   };
 
-  // Category Data
-  const categoryData: VerticalBarChartDataPoint[] = [
+  // Funnel Chart Data
+  const funnelChartData = [
     {
-      x: "Electronics",
-      y: 25000,
-      legend: "Electronics",
+      stage: "Website Visitors",
+      value: 10000,
       color: getColorFromToken(DataVizPalette.color1),
     },
     {
-      x: "Clothing",
-      y: 18000,
-      legend: "Clothing",
+      stage: "Product Views",
+      value: 7500,
       color: getColorFromToken(DataVizPalette.color2),
     },
     {
-      x: "Books",
-      y: 12000,
-      legend: "Books",
+      stage: "Add to Cart",
+      value: 3200,
       color: getColorFromToken(DataVizPalette.color3),
     },
     {
-      x: "Home",
-      y: 22000,
-      legend: "Home",
+      stage: "Checkout Started",
+      value: 1800,
       color: getColorFromToken(DataVizPalette.color4),
     },
     {
-      x: "Sports",
-      y: 15000,
-      legend: "Sports",
+      stage: "Payment Complete",
+      value: 1250,
       color: getColorFromToken(DataVizPalette.color5),
     },
   ];
 
-  // Sparkline Data
-  const sparklineData1: ChartProps = {
-    chartTitle: "Daily Users",
+  // Gantt Chart Data
+  const ganttChartData: GanttChartDataPoint[] = [
+    {
+      x: { start: new Date("2024-08-01"), end: new Date("2024-08-15") },
+      y: "Project Planning",
+      legend: "Complete",
+      color: getColorFromToken(DataVizPalette.color1),
+      gradient: [
+        getColorFromToken(DataVizPalette.color1),
+        getColorFromToken(DataVizPalette.color2),
+      ],
+    },
+    {
+      x: { start: new Date("2024-08-10"), end: new Date("2024-08-25") },
+      y: "Design Phase",
+      legend: "In Progress",
+      color: getColorFromToken(DataVizPalette.color3),
+      gradient: [
+        getColorFromToken(DataVizPalette.color3),
+        getColorFromToken(DataVizPalette.color4),
+      ],
+    },
+    {
+      x: { start: new Date("2024-08-20"), end: new Date("2024-09-10") },
+      y: "Development",
+      legend: "In Progress",
+      color: getColorFromToken(DataVizPalette.color3),
+      gradient: [
+        getColorFromToken(DataVizPalette.color3),
+        getColorFromToken(DataVizPalette.color4),
+      ],
+    },
+    {
+      x: { start: new Date("2024-09-05"), end: new Date("2024-09-20") },
+      y: "Testing",
+      legend: "Not Started",
+      color: getColorFromToken(DataVizPalette.color5),
+      gradient: [
+        getColorFromToken(DataVizPalette.color5),
+        getColorFromToken(DataVizPalette.color6),
+      ],
+    },
+    {
+      x: { start: new Date("2024-09-15"), end: new Date("2024-09-30") },
+      y: "Deployment",
+      legend: "Not Started",
+      color: getColorFromToken(DataVizPalette.color5),
+      gradient: [
+        getColorFromToken(DataVizPalette.color5),
+        getColorFromToken(DataVizPalette.color6),
+      ],
+    },
+    {
+      x: { start: new Date("2024-09-25"), end: new Date("2024-10-05") },
+      y: "Documentation",
+      legend: "Not Started",
+      color: getColorFromToken(DataVizPalette.color5),
+      gradient: [
+        getColorFromToken(DataVizPalette.color5),
+        getColorFromToken(DataVizPalette.color6),
+      ],
+    },
+  ];
+
+  // Gauge Chart Data
+  const performanceSegments = [
+    {
+      legend: "Poor",
+      size: 25,
+      color: getColorFromToken(DataVizPalette.color5),
+    },
+    {
+      legend: "Fair",
+      size: 25,
+      color: getColorFromToken(DataVizPalette.color4),
+    },
+    {
+      legend: "Good",
+      size: 25,
+      color: getColorFromToken(DataVizPalette.color3),
+    },
+    {
+      legend: "Excellent",
+      size: 25,
+      color: getColorFromToken(DataVizPalette.color1),
+    },
+  ];
+
+  // HeatMap Chart Data
+  const heatMapData = [
+    {
+      legend: "Product A",
+      value: 150,
+      data: [
+        { x: "Jan", y: "High", value: 120 },
+        { x: "Feb", y: "High", value: 135 },
+        { x: "Mar", y: "Medium", value: 150 },
+        { x: "Apr", y: "Medium", value: 165 },
+        { x: "May", y: "Low", value: 180 },
+      ],
+      color: getColorFromToken(DataVizPalette.color1),
+    },
+    {
+      legend: "Product B",
+      value: 110,
+      data: [
+        { x: "Jan", y: "High", value: 85 },
+        { x: "Feb", y: "Medium", value: 92 },
+        { x: "Mar", y: "Medium", value: 110 },
+        { x: "Apr", y: "Low", value: 125 },
+        { x: "May", y: "Low", value: 140 },
+      ],
+      color: getColorFromToken(DataVizPalette.color2),
+    },
+    {
+      legend: "Product C",
+      value: 180,
+      data: [
+        { x: "Jan", y: "High", value: 145 },
+        { x: "Feb", y: "High", value: 158 },
+        { x: "Mar", y: "Medium", value: 172 },
+        { x: "Apr", y: "Medium", value: 190 },
+        { x: "May", y: "Low", value: 205 },
+      ],
+      color: getColorFromToken(DataVizPalette.color3),
+    },
+  ];
+
+  // Dedicated ScatterChart Data
+  const scatterPlotData: ChartProps = {
+    chartTitle: "Revenue vs Customer Satisfaction",
     lineChartData: [
       {
-        legend: "Users",
+        legend: "Q1 Performance",
         data: [
-          { x: new Date("2024-08-08"), y: 120 },
-          { x: new Date("2024-08-09"), y: 135 },
-          { x: new Date("2024-08-10"), y: 128 },
-          { x: new Date("2024-08-11"), y: 142 },
-          { x: new Date("2024-08-12"), y: 158 },
-          { x: new Date("2024-08-13"), y: 165 },
-          { x: new Date("2024-08-14"), y: 171 },
+          { x: 75, y: 45000, markerSize: 12 },
+          { x: 82, y: 52000, markerSize: 15 },
+          { x: 78, y: 48000, markerSize: 10 },
+          { x: 85, y: 61000, markerSize: 18 },
+          { x: 80, y: 55000, markerSize: 14 },
+          { x: 88, y: 67000, markerSize: 20 },
         ],
         color: getColorFromToken(DataVizPalette.color1),
       },
-    ],
-  };
-
-  const sparklineData2: ChartProps = {
-    chartTitle: "Conversion Rate",
-    lineChartData: [
       {
-        legend: "Rate",
+        legend: "Q2 Performance",
         data: [
-          { x: new Date("2024-08-08"), y: 2.4 },
-          { x: new Date("2024-08-09"), y: 2.8 },
-          { x: new Date("2024-08-10"), y: 3.1 },
-          { x: new Date("2024-08-11"), y: 2.9 },
-          { x: new Date("2024-08-12"), y: 3.3 },
-          { x: new Date("2024-08-13"), y: 3.6 },
-          { x: new Date("2024-08-14"), y: 3.8 },
+          { x: 72, y: 38000, markerSize: 10 },
+          { x: 79, y: 43000, markerSize: 13 },
+          { x: 83, y: 51000, markerSize: 16 },
+          { x: 86, y: 58000, markerSize: 19 },
+          { x: 90, y: 62000, markerSize: 22 },
+          { x: 92, y: 71000, markerSize: 25 },
         ],
         color: getColorFromToken(DataVizPalette.color2),
       },
-    ],
-  };
-
-  const sparklineData3: ChartProps = {
-    chartTitle: "Page Load Time",
-    lineChartData: [
       {
-        legend: "Load Time",
-        data: [
-          { x: new Date("2024-08-08"), y: 1.8 },
-          { x: new Date("2024-08-09"), y: 1.6 },
-          { x: new Date("2024-08-10"), y: 1.4 },
-          { x: new Date("2024-08-11"), y: 1.2 },
-          { x: new Date("2024-08-12"), y: 1.1 },
-          { x: new Date("2024-08-13"), y: 0.9 },
-          { x: new Date("2024-08-14"), y: 0.8 },
-        ],
+        legend: "Milestone",
+        data: [{ x: 95, y: 85000, markerSize: 35 }],
         color: getColorFromToken(DataVizPalette.color3),
       },
     ],
@@ -410,8 +491,9 @@ const FluentChartsDashboard: React.FC = () => {
         }
         description={
           <Text>
-            Comprehensive showcase of Fluent UI React Charts components and
-            their capabilities
+            Complete showcase of Fluent UI React Charts components featuring
+            Line Charts, Area Charts, Bar Charts, Donut Charts, and advanced
+            visualizations with interactive elements and real-time metrics
           </Text>
         }
       />
@@ -536,41 +618,8 @@ const FluentChartsDashboard: React.FC = () => {
               <CardHeader
                 header={
                   <div>
-                    <Text weight="semibold">Multi-Bar Chart</Text>
-                    <Text>Product performance ranking</Text>
-                  </div>
-                }
-              />
-              <CardPreview>
-                <VerticalBarChart
-                  data={multiBarData}
-                  height={300}
-                  width={500}
-                  barWidth={40}
-                  yAxisTickCount={6}
-                  enableReflow={true}
-                />
-              </CardPreview>
-            </Card>
-          </div>
-
-          {/* Smaller Charts Grid */}
-          <div className={styles.smallChartsGrid}>
-            <Card className={styles.chartCard}>
-              <CardHeader
-                header={
-                  <div>
                     <Text weight="semibold">Donut Chart</Text>
-                    <div className={styles.metricValue}>
-                      100%
-                      <div
-                        className={`${styles.metricChange} ${styles.metricChangePositive}`}
-                      >
-                        <ChevronUp24Regular />
-                        <Text>+2%</Text>
-                      </div>
-                    </div>
-                    <Text>Device usage distribution</Text>
+                    <Text>Device usage distribution with center value</Text>
                   </div>
                 }
               />
@@ -579,8 +628,42 @@ const FluentChartsDashboard: React.FC = () => {
                   data={donutData}
                   innerRadius={55}
                   valueInsideDonut={100}
-                  height={250}
-                  width={350}
+                  height={300}
+                  width={500}
+                />
+              </CardPreview>
+            </Card>
+          </div>
+
+          {/* Extended Chart Collection */}
+          <Text
+            weight="semibold"
+            size={500}
+            style={{
+              marginBottom: tokens.spacingVerticalM,
+              marginTop: tokens.spacingVerticalL,
+            }}
+          >
+            Extended Chart Collection
+          </Text>
+          <div className={styles.chartGrid}>
+            <Card className={styles.chartCard}>
+              <CardHeader
+                header={
+                  <div>
+                    <Text weight="semibold">Pie Chart</Text>
+                    <Text>
+                      Browser market share distribution (innerRadius=0)
+                    </Text>
+                  </div>
+                }
+              />
+              <CardPreview>
+                <DonutChart
+                  data={pieChartData}
+                  height={300}
+                  width={500}
+                  innerRadius={0}
                 />
               </CardPreview>
             </Card>
@@ -589,9 +672,30 @@ const FluentChartsDashboard: React.FC = () => {
               <CardHeader
                 header={
                   <div>
-                    <Text weight="semibold">Performance Metrics</Text>
+                    <Text weight="semibold">Funnel Chart</Text>
+                    <Text>Sales conversion funnel analysis</Text>
+                  </div>
+                }
+              />
+              <CardPreview>
+                <FunnelChart
+                  data={funnelChartData}
+                  chartTitle="E-commerce Conversion Funnel"
+                  height={280}
+                  width={350}
+                  orientation="horizontal"
+                  hideLegend={false}
+                />
+              </CardPreview>
+            </Card>
+
+            <Card className={styles.chartCard}>
+              <CardHeader
+                header={
+                  <div>
+                    <Text weight="semibold">Gauge Chart</Text>
                     <div className={styles.metricValue}>
-                      78/100
+                      85/100
                       <div
                         className={`${styles.metricChange} ${styles.metricChangePositive}`}
                       >
@@ -599,17 +703,23 @@ const FluentChartsDashboard: React.FC = () => {
                         <Text>+5 pts</Text>
                       </div>
                     </div>
-                    <Text>Overall performance score visualization</Text>
+                    <Text>Overall system performance rating</Text>
                   </div>
                 }
               />
               <CardPreview>
-                <DonutChart
-                  data={performanceData}
-                  innerRadius={55}
-                  valueInsideDonut={78}
-                  height={250}
-                  width={350}
+                <GaugeChart
+                  width={500}
+                  height={300}
+                  chartValue={85}
+                  segments={performanceSegments}
+                  minValue={0}
+                  maxValue={100}
+                  chartTitle="Performance Score"
+                  sublabel="Current Status"
+                  hideMinMax={false}
+                  enableGradient={true}
+                  roundCorners={true}
                 />
               </CardPreview>
             </Card>
@@ -618,122 +728,82 @@ const FluentChartsDashboard: React.FC = () => {
               <CardHeader
                 header={
                   <div>
-                    <Text weight="semibold">Product Categories</Text>
-                    <div className={styles.metricValue}>
-                      <DataScatter24Regular />5 Categories
-                    </div>
-                    <Text>Revenue distribution by category</Text>
+                    <Text weight="semibold">Heat Map Chart</Text>
+                    <Text>Product performance over time</Text>
                   </div>
                 }
               />
               <CardPreview>
-                <VerticalBarChart
-                  data={categoryData}
-                  height={250}
-                  width={350}
-                  barWidth={40}
-                  yAxisTickCount={5}
-                  enableReflow={true}
+                <HeatMapChart
+                  data={heatMapData}
+                  domainValuesForColorScale={[80, 150, 210]}
+                  rangeValuesForColorScale={["#90EE90", "#FFD700", "#FF6347"]}
+                  width={500}
+                  height={300}
+                  culture="en-US"
+                />
+              </CardPreview>
+            </Card>
+
+            <Card className={styles.chartCard}>
+              <CardHeader
+                header={
+                  <div>
+                    <Text weight="semibold">Scatter Chart</Text>
+                    <Text>
+                      Customer satisfaction vs revenue with marker sizes
+                    </Text>
+                  </div>
+                }
+              />
+              <CardPreview>
+                <ScatterChart
+                  data={scatterPlotData}
+                  width={500}
+                  height={300}
+                  xAxisTitle="Customer Satisfaction Score"
+                  yAxisTitle="Revenue ($)"
+                  culture="en-US"
                 />
               </CardPreview>
             </Card>
           </div>
 
-          {/* Mini Charts Grid */}
+          {/* Project Management Chart */}
           <Text
             weight="semibold"
-            size={400}
-            style={{ marginBottom: tokens.spacingVerticalM }}
+            size={500}
+            style={{
+              marginBottom: tokens.spacingVerticalM,
+              marginTop: tokens.spacingVerticalL,
+            }}
           >
-            Key Metrics Trends
+            Project Management
           </Text>
-          <div className={styles.sparklineGrid}>
-            <Card className={styles.sparklineCard}>
+          <div className={styles.chartGrid}>
+            <Card className={styles.chartCard}>
               <CardHeader
                 header={
                   <div>
-                    <Text weight="semibold">Daily Users</Text>
-                    <div
-                      className={styles.metricValue}
-                      style={{ fontSize: "18px" }}
-                    >
-                      171
-                      <div
-                        className={`${styles.metricChange} ${styles.metricChangePositive}`}
-                      >
-                        <ChevronUp24Regular />
-                        <Text>+42%</Text>
-                      </div>
-                    </div>
+                    <Text weight="semibold">Gantt Chart</Text>
+                    <Text>Project timeline and task scheduling</Text>
                   </div>
                 }
               />
               <CardPreview>
-                <AreaChart
-                  data={sparklineData1}
-                  height={80}
-                  width={180}
-                  enableReflow={true}
-                />
-              </CardPreview>
-            </Card>
-
-            <Card className={styles.sparklineCard}>
-              <CardHeader
-                header={
-                  <div>
-                    <Text weight="semibold">Conversion Rate</Text>
-                    <div
-                      className={styles.metricValue}
-                      style={{ fontSize: "18px" }}
-                    >
-                      3.8%
-                      <div
-                        className={`${styles.metricChange} ${styles.metricChangePositive}`}
-                      >
-                        <ChevronUp24Regular />
-                        <Text>+58%</Text>
-                      </div>
-                    </div>
-                  </div>
-                }
-              />
-              <CardPreview>
-                <AreaChart
-                  data={sparklineData2}
-                  height={80}
-                  width={180}
-                  enableReflow={true}
-                />
-              </CardPreview>
-            </Card>
-
-            <Card className={styles.sparklineCard}>
-              <CardHeader
-                header={
-                  <div>
-                    <Text weight="semibold">Page Load Time</Text>
-                    <div
-                      className={styles.metricValue}
-                      style={{ fontSize: "18px" }}
-                    >
-                      0.8s
-                      <div
-                        className={`${styles.metricChange} ${styles.metricChangeNegative}`}
-                      >
-                        <ChevronDown24Regular />
-                        <Text>-56%</Text>
-                      </div>
-                    </div>
-                  </div>
-                }
-              />
-              <CardPreview>
-                <AreaChart
-                  data={sparklineData3}
-                  height={80}
-                  width={180}
-                  enableReflow={true}
+                <GanttChart
+                  data={ganttChartData}
+                  width={500}
+                  height={300}
+                  enableGradient={true}
+                  roundCorners={true}
+                  yAxisPadding={0.5}
+                  showYAxisLablesTooltip={true}
+                  margins={{ top: 20, bottom: 35, left: 120, right: 20 }}
+                  xAxisTickCount={6}
+                  yAxisTickCount={6}
+                  xAxisTitle="Timeline"
+                  yAxisTitle="Project Tasks"
                 />
               </CardPreview>
             </Card>

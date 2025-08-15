@@ -25,6 +25,9 @@ import CheckoutPage from "./blocks/ecommerce/CheckoutPage";
 import SignInPage from "./blocks/auth/SignInPage";
 import TwoColumnSignInPage from "./blocks/auth/TwoColumnSignInPage";
 import BlogHomepage from "./blocks/blog/BlogHomepage";
+import TetrisGame from "./blocks/games/TetrisGame";
+import TicTacToeGame from "./blocks/games/TicTacToeGame";
+import BreakoutGame from "./blocks/games/BreakoutGame";
 
 const useStyles = makeStyles({
   appContainer: {
@@ -146,6 +149,9 @@ const App = () => {
         "signin",
         "twocolumn",
         "blog",
+        "tetris",
+        "tictactoe",
+        "breakout",
       ];
       return validTabs.includes(hash) ? hash : "analytics";
     }
@@ -174,6 +180,9 @@ const App = () => {
           "signin",
           "twocolumn",
           "blog",
+          "tetris",
+          "tictactoe",
+          "breakout",
         ];
         if (validTabs.includes(hash)) {
           setSelectedTab(hash);
@@ -212,6 +221,12 @@ const App = () => {
         return <TwoColumnSignInPage />;
       case "blog":
         return <BlogHomepage />;
+      case "tetris":
+        return <TetrisGame />;
+      case "tictactoe":
+        return <TicTacToeGame />;
+      case "breakout":
+        return <BreakoutGame />;
       default:
         return <AnalyticsDashboard />;
     }
@@ -308,6 +323,9 @@ const App = () => {
                 <Tab value="signin">Sign In Page</Tab>
                 <Tab value="twocolumn">Two-Column Sign In</Tab>
                 <Tab value="blog">Blog Homepage</Tab>
+                <Tab value="tetris">Tetris Game</Tab>
+                <Tab value="tictactoe">Tic Tac Toe</Tab>
+                <Tab value="breakout">Breakout</Tab>
               </TabList>
 
               <div className={styles.tabContent}>{renderCurrentTemplate()}</div>
